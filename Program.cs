@@ -1,6 +1,22 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-Console.WriteLine("comment number 2");
-Console.WriteLine("comment number 3");
-Console.WriteLine("comment number 4");
-Console.WriteLine("comment number 5");
+﻿using System;
+
+namespace HenTest {
+public class Hen {
+public async Task Hen1(){
+Console.WriteLine("Hey Hen, the program is about to start");
+var text= await Hen2();
+Console.WriteLine("2 seconds passed");
+}
+public async Task<string> Hen2(){
+await Task.Delay(2000);
+return ("The program is finished the run");
+}
+}
+
+class Program {
+public static async Task Main(string[] args){
+Hen hen=new Hen();
+await hen.Hen1();
+}
+}
+}
