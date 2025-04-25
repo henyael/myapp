@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-namespace HenTest {
-public class Hen {
-public async Task Hen1(){
-Console.WriteLine("Hey Hen, the program is about to start");
-var text= await Hen2();
-Console.WriteLine("2 seconds passed");
+namespace Hen{
+public class Downloader {
+    public string LastDownloadedContent { get; private set; }
+    public Downloader(string lastDownloadedContent){
+    LastDownloadedContent=lastDownloadedContent;
 }
-public async Task<string> Hen2(){
-await Task.Delay(2000);
-return ("The program is finished the run");
+    public async Task<string> DownloadAsync(string url) {
+        await Task.Delay(1000);
+        string content= $"Content from {url}";
+        LastDownloadedContent=content;
+        return content;
+    }
 }
-}
-
 class Program {
-public static async Task Main(string[] args){
-Hen hen=new Hen();
-await hen.Hen1();
-}
+        static public async Task Main(String[] args){
+        Downloader downloader=new Downloader("");
+        Console.WriteLine("Hen, please enter a URL");
+        string text=Console.ReadLine();
+        string LastDownloadedContent=await downloader.DownloadAsync(text);
+        Console.WriteLine(downloader.LastDownloadedContent);
+
+    } 
 }
 }
