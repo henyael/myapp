@@ -1,27 +1,37 @@
 ﻿using System;
-using System.Threading.Tasks;
-
+using System.Collections.Generic;
 namespace Hen{
-public class Downloader {
-    public string LastDownloadedContent { get; private set; }
-    public Downloader(string lastDownloadedContent){
-    LastDownloadedContent=lastDownloadedContent;
-}
-    public async Task<string> DownloadAsync(string url) {
-        await Task.Delay(1000);
-        string content= $"Content from {url}";
-        LastDownloadedContent=content;
-        return content;
-    }
-}
-class Program {
-        static public async Task Main(String[] args){
-        Downloader downloader=new Downloader("");
-        Console.WriteLine("Hen, please enter a URL");
-        string text=Console.ReadLine();
-        string LastDownloadedContent=await downloader.DownloadAsync(text);
-        Console.WriteLine(downloader.LastDownloadedContent);
+    class Hen1{
 
-    } 
-}
+        static  void Main (string[]args){
+        List<int>numbers=new List<int>();
+        int maximum=0;
+        int sum=0;
+        int number=0;
+        Console.WriteLine("Hen, can you pls type 1 number?");
+        while (true){
+            number=int.Parse(Console.ReadLine());
+        
+        if (number==-1){
+            break;
+
+        }
+        numbers.Add(number);
+        sum+=number;
+        }
+
+        foreach(int index in numbers){
+            if(index>maximum){
+                maximum=index;
+            }
+        }
+        if (numbers.Count>0){
+        double average=(double)sum/numbers.Count;
+        Console.WriteLine($"The average is:{average}");
+        Console.WriteLine($"The max number is {maximum}");
+        }
+        }
+
+    }
+
 }
