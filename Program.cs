@@ -1,55 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Hen
+namespace Hen{
+
+class Customer
 {
-    class Action
-    {
-        public string Description { get; set; }
-        public int Priority { get; set; }
+    public string Name { get; set; }
+    public int TicketNumber { get; set; }
 
-        public Action(string description, int priority)
-        {
-            Description = description;
-            Priority = priority;
-        }
-    }
+ public Customer(string name, int ticketNumber){
+        Name=name;
+        TicketNumber=ticketNumber;
+ }   
+}
 
-    class Program
-    {
-        static Stack<Action> ActionStack = new Stack<Action>();
+class Program
+{
+static public Queue<Customer> Customerqueue=new Queue<Customer>();
 
-        static void Search()
-        {
-            bool found = false;
+static public void Search(string a){
+bool found=false;
+foreach(Customer item in Customerqueue){
+if(item.Name==a){
+Console.WriteLine($"Yey, there is a match in the name, the ticket num is{item.TicketNumber}");
+found=true;
+break;
+}
 
-            foreach (Action action in ActionStack)
-            {
-                if (action.Priority == 1)
-                {
-                    Console.WriteLine(action.Description);
-                    found = true;
-                    break;
-                }
-            }
+}
+if(found==false){
+    Console.WriteLine("Sorry, we didnt find any match");
+}
+}
+static public void Main(string[]args){
+Customer customer1=new Customer("Hen",1);
+Customer customer2=new Customer("Gal",2);
+Customer customer3=new Customer("Avi",3);
+Customer customer4=new Customer("Dan",4);
+Customer customer5=new Customer("Ron",5);
+Customerqueue.Enqueue(customer1);
+Customerqueue.Enqueue(customer2);
+Customerqueue.Enqueue(customer3);
+Customerqueue.Enqueue(customer4);
+Customerqueue.Enqueue(customer5);
 
-            if (!found)
-            {
-                Console.WriteLine("nothing was found");
-            }
-        }
+Console.WriteLine("Hey user,pls enter a name");
+string name=Console.ReadLine();
+Search(name);
 
-        static public void Main(string[] args)
-        {
-            Action action1 = new Action("eat", 1);
-            Action action2 = new Action("drink", 2);
-            Action action3 = new Action("sleep", 1);
-
-            ActionStack.Push(action1);
-            ActionStack.Push(action2);
-            ActionStack.Push(action3);
-
-            Search(); // Call Search method
-        }
-    }
+}
+}
 }
