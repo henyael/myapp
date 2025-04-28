@@ -1,27 +1,55 @@
 ﻿using System;
-namespace Hen{
+using System.Collections.Generic;
 
-public class Logger{
+namespace Hen
+{
+    class Action
+    {
+        public string Description { get; set; }
+        public int Priority { get; set; }
 
-public int LogCount {get;private set;}=0;
+        public Action(string description, int priority)
+        {
+            Description = description;
+            Priority = priority;
+        }
+    }
 
-public async Task<int> LogAsync(string message){
-    await Task.Delay(500);
-    Console.WriteLine($"The message is:{message}");
-    LogCount++;
-    return LogCount;
-}
-}
+    class Program
+    {
+        static Stack<Action> ActionStack = new Stack<Action>();
 
-public class Program{
-static public async Task Main(string[] args){
-    Console.WriteLine("Hey, can you please enter a message");
-    string text=Console.ReadLine();
-    Logger logger=new Logger();
-    await logger.LogAsync(text);
-    Console.WriteLine($"The Counter is:{logger.LogCount}");
-    await logger.LogAsync(text);
-    Console.WriteLine($"The Counter is:{logger.LogCount}");
-} 
-}
+        static void Search()
+        {
+            bool found = false;
+
+            foreach (Action action in ActionStack)
+            {
+                if (action.Priority == 1)
+                {
+                    Console.WriteLine(action.Description);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("nothing was found");
+            }
+        }
+
+        static public void Main(string[] args)
+        {
+            Action action1 = new Action("eat", 1);
+            Action action2 = new Action("drink", 2);
+            Action action3 = new Action("sleep", 1);
+
+            ActionStack.Push(action1);
+            ActionStack.Push(action2);
+            ActionStack.Push(action3);
+
+            Search(); // Call Search method
+        }
+    }
 }
